@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <link rel="shortcut icon" href="wp-content/uploads/2023/10/at-favicon.png" >
+		<link rel="icon" href="wp-content/uploads/2023/10/at-favicon.png" >
+		<link rel="apple-touch-icon" sizes="152x152" href="wp-content/uploads/2023/10/at-favicon.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="wp-content/uploads/2023/10/at-favicon.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="wp-content/uploads/2023/10/at-favicon.png">
+        <link rel="apple-touch-icon" href="wp-content/uploads/2023/10/at-favicon.png">
+        <link rel="icon" href="wp-content/uploads/2023/10/at-favicon.png" sizes="32x32" />
+<link rel="icon" href="wp-content/uploads/2023/10/at-favicon.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="wp-content/uploads/2023/10/at-favicon.png" />
+<meta name="msapplication-TileImage" content="https://professionalprofits.com/wp-content/uploads/2023/10/at-favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" src="script.js"></script>
+    <title>Login Page</title>
+  </head>
+  <body>
+    <script type="module" src="script.js"></script>
+    <div class="container" id="container">
+      <div class="sign-up">
+        <form>
+          <h1>Create Account</h1>
+          <div class="icons">
+            <button id="google-create-btn" class="icon">
+              <i class="fa-brands fa-google"></i>
+            </button>
+          </div>
+          <span>or use email for registration</span>
+          <input type="text" placeholder="Name" id="newName" required />
+          <div class="error" id="newNameError"></div>
+
+          <input type="text" placeholder="Email" id="newEmail" required />
+          <div class="error" id="newEmailError"></div>
+          <!-- Corrected here -->
+          <input
+            type="password"
+            placeholder="Password"
+            id="newPassword"
+            required
+          />
+          <div class="error" id="newPasswordError"></div>
+          <button id="newSubmit" type="button">Sign Up</button>
+          <!-- Corrected here -->
+        </form>
+      </div>
+      <div class="sign-in">
+        <form>
+          <h1>Sign In</h1>
+          <div class="icons">
+            <button id="google-login-btn" class="icon">
+              <i class="fa-brands fa-google"></i>
+            </button>
+          </div>
+          <span>or use email password</span>
+          <input type="text" placeholder="Email" id = "email-login" />
+          <div class="error" id="email-loginError"></div>
+          <input type="password" placeholder="Password" id = "password-login" />
+          <div class="error" id="password-loginError"></div>
+
+<button2 type="button" id="forgot-password">Forgot Password?</button2>
+          <button id = "login-user-btn">Sign In</button>
+        </form>
+      </div>
+      <div class="toggle-container">
+        <!-- Corrected spelling -->
+        <div class="toggle">
+          <div class="toggle-panel toggle-left">
+            <!-- Corrected spelling -->
+            <h1>Welcome User!</h1>
+            <p>If you already have an account</p>
+            <button class="hidden" id="login">Sign In</button>
+          </div>
+          <div class="toggle-panel toggle-right">
+            <!-- Corrected spelling -->
+            <h1>Hello, Trader!</h1>
+            <p>If you don't have an account</p>
+            <button class="hidden" id="register">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </body>
+</html>

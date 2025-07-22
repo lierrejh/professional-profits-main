@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="wp-content/uploads/2023/10/at-favicon.png" >
+		<link rel="icon" href="wp-content/uploads/2023/10/at-favicon.png" >
+		<link rel="apple-touch-icon" sizes="152x152" href="wp-content/uploads/2023/10/at-favicon.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="wp-content/uploads/2023/10/at-favicon.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="wp-content/uploads/2023/10/at-favicon.png">
+        <link rel="apple-touch-icon" href="wp-content/uploads/2023/10/at-favicon.png">
+        <link rel="icon" href="wp-content/uploads/2023/10/at-favicon.png" sizes="32x32" />
+<link rel="icon" href="wp-content/uploads/2023/10/at-favicon.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="wp-content/uploads/2023/10/at-favicon.png" />
+<meta name="msapplication-TileImage" content="../wp-content/uploads/2023/10/at-favicon.png" />
+
+    <!-- Add Firebase SDKs -->
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getFirestore, doc,
+	setDoc,
+	getDoc, } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+  import {
+	getAuth,
+	createUserWithEmailAndPassword,
+	onAuthStateChanged, 
+    signOut
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+      
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDYNyy60egdnsHuycJa-86abDHrd9f7zzM",
+	authDomain: "professional-profits.firebaseapp.com",
+	projectId: "professional-profits",
+	storageBucket: "professional-profits.appspot.com",
+	messagingSenderId: "659626153048",
+	appId: "1:659626153048:web:676b7439b59d6e2de9a62d",
+	measurementId: "G-4DR3Q65DGK",
+  };
+      
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+
+    onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      // User is not logged in, redirect to login page
+      window.location.href = "log-in/index.html";
+    } else {
+      console.log("User is logged in:", user);
+      const uid = user.uid;
+
+      // Reference to the user's document
+      const docRef = doc(db, "users", uid);
+
+      try {
+        // Fetch the document
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          // Access the membershipStatus field
+          const membershipStatus = docSnap.data().membershipStatus;
+
+          // Check membership status
+          if (membershipStatus === 'member') {
+            console.log('User has an active membership.');
+            const bookingsItem = document.querySelector('.sidebar-item.hide-bookings');
+          if (bookingsItem) {
+            bookingsItem.classList.remove('hide-bookings');
+            bookingsItem.classList.remove('hide-calendar');
+          }
+            window.location.href = 'professionalprofits.com/dashboard/bookings/index.html'
+
+
+          } else if (membershipStatus === 'waitlist') {
+            console.log('User does not have an active membership.');
+            const waitlistItem = document.querySelector('.sidebar-item.hide-waitlist');
+          if (waitlistItem) {
+            waitlistItem.classList.remove('hide-waitlist');
+          }
+            window.location.href = 'professionalprofits.com/dashboard/waitlist/index.html'
+
+
+          } 
+          
+          else if (membershipStatus === 'invited') {
+            console.log('User has been invited.');
+            const waitlistItem = document.querySelector('.sidebar-item.hide-waitlist');
+          if (waitlistItem) {
+            waitlistItem.classList.remove('hide-waitlist');
+          }
+            window.location.href = 'professionalprofits.com/dashboard/invited/index.html'
+
+
+          }
+
+          else {
+
+
+
+            console.log("Unknown membership status.");
+          }
+        } else {
+
+
+          console.log("No such document!");
+        }
+      } catch (error) {
+
+
+        console.error("Error fetching document:", error);
+      }
+    }
+  });
+
+
+    // Logout functionality
+	const logoutBtn = document.getElementById("logout");
+	logoutBtn.addEventListener("click", () => {
+		signOut(auth).then(() => {
+  window.location.href = "professionalprofits.com/index.html";
+			})
+			.catch((error) => {
+				console.error("Error signing out", error);
+			});
+
+	});
+
+</script>
+</head>
+
+<body id="fullDocument">
+    <div class="wrapper">
+        <aside id="sidebar">
+            <div class="d-flex">
+                <button class="toggle-btn" type="button">
+                    <i class="lni lni-grid-alt"></i>
+                </button>
+                <div class="sidebar-logo">
+                    <a href="">Dashboard</a>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item hide-waitlist">
+                    <a href="waitlist/index.html" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span>Waitlist</span>
+                    </a>
+                </li>
+                <li class="sidebar-item hide-bookings">
+                    <a href="bookings/index.html" class="sidebar-link">
+                        <i class="lni lni-user"></i>
+                        <span>Bookings</span>
+                    </a>
+                </li>
+                <li class="sidebar-item hide-calendar">
+                  <a href="calendar/index.html" class="sidebar-link">
+                      <i class="lni lni-calendar"></i>
+                      <span>Calendar</span>
+                  </a>
+              </li>
+                <!-- <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-cog"></i>
+                        <span>Admin</span>
+                    </a>
+                </li> -->
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#" id="logout" class="sidebar-link">
+                    <i class="lni lni-exit"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <div class="main">
+            <nav class="navbar navbar-expand px-4 py-3">
+                <form action="#" class="d-none d-sm-inline-block">
+                </form>
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0"></a>
+                            <div class="dropdown-menu dropdown-menu-end rounded"></div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <main class="content px-3 py-4">
+                
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+ 
